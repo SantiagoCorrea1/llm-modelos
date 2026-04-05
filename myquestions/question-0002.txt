@@ -1,0 +1,24 @@
+Problema: Promedio y máximo de valores numéricos por grupo
+
+Tienes un DataFrame de pandas con datos de transacciones financieras con las columnas:
+'cliente' (str), 'monto' (float) y 'num_transacciones' (int).
+
+Tu Misión: Escribe una función llamada estadisticas_por_cliente(df) que realice lo siguiente:
+
+1. Agrupe el DataFrame por 'cliente'.
+2. Para cada cliente calcule:
+   - El promedio de 'monto'. Llama esta columna 'monto_promedio'.
+   - El máximo de 'monto'. Llama esta columna 'monto_maximo'.
+   - La suma de 'num_transacciones'. Llama esta columna 'total_transacciones'.
+3. Redondee 'monto_promedio' y 'monto_maximo' a 2 decimales.
+4. Ordene el resultado por 'total_transacciones' de mayor a menor.
+5. Devuelva el DataFrame resultante con 'cliente' como índice.
+
+La función recibe:
+- df: un DataFrame de pandas con las columnas 'cliente', 'monto' y 'num_transacciones'
+  (sin valores NaN).
+
+La función devuelve:
+- Un DataFrame de pandas con índice 'cliente' y columnas 'monto_promedio',
+  'monto_maximo' y 'total_transacciones', ordenado descendentemente por
+  'total_transacciones'.

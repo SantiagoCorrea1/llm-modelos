@@ -1,0 +1,20 @@
+Problema: Filtrado y cálculo de totales en datos de ventas
+
+Tienes un DataFrame de pandas con registros de ventas con las columnas:
+'producto' (str), 'categoria' (str), 'cantidad' (int) y 'precio_unitario' (float).
+
+Tu Misión: Escribe una función llamada calcular_totales(df, categoria) que realice lo siguiente:
+
+1. Filtre el DataFrame para quedarse solo con las filas donde 'categoria' sea igual
+   al valor del parámetro categoria.
+2. Cree una nueva columna llamada 'total' calculada como cantidad * precio_unitario.
+3. Devuelva un DataFrame con solo las columnas 'producto', 'cantidad', 'precio_unitario'
+   y 'total', reiniciando el índice (reset_index con drop=True).
+
+La función recibe:
+- df: un DataFrame de pandas con las columnas descritas (sin valores NaN).
+- categoria: un string con el nombre de la categoría a filtrar.
+
+La función devuelve:
+- Un DataFrame de pandas con las columnas 'producto', 'cantidad', 'precio_unitario'
+  y 'total', conteniendo solo las filas de la categoría indicada, con índice reiniciado.

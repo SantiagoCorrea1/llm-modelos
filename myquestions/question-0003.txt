@@ -1,0 +1,26 @@
+Problema: Entrenamiento y predicción con un clasificador simple
+
+Tienes arrays de numpy con características numéricas (sin valores faltantes) y
+etiquetas binarias para un problema de clasificación.
+
+Tu Misión: Escribe una función llamada clasificar_datos(X_train, y_train, X_test)
+que realice lo siguiente:
+
+1. Normalice las características usando StandardScaler de sklearn: ajuste el scaler
+   con X_train y transfórmelo tanto en X_train como en X_test.
+2. Entrene un LogisticRegression de sklearn (con random_state=42 y max_iter=1000)
+   usando X_train normalizado e y_train.
+3. Genere las predicciones sobre X_test normalizado.
+4. Devuelva una tupla con dos elementos:
+   a. Un array numpy con las predicciones (clases 0 o 1) sobre X_test.
+   b. Un float con el accuracy obtenido sobre X_train (usando accuracy_score).
+
+La función recibe:
+- X_train: array numpy de forma (n_train, n_features) sin valores NaN.
+- y_train: array numpy de forma (n_train,) con etiquetas 0 o 1.
+- X_test: array numpy de forma (n_test, n_features) sin valores NaN.
+
+La función devuelve:
+- Una tupla (predicciones, accuracy_train):
+  * predicciones: array numpy de enteros (0 o 1) con las predicciones sobre X_test.
+  * accuracy_train: float con el accuracy del modelo sobre los datos de entrenamiento.

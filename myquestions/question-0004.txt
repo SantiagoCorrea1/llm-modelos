@@ -1,0 +1,27 @@
+Problema: Regresión lineal simple con métricas de error
+
+Tienes arrays de numpy con características numéricas y valores objetivo continuos
+para un problema de regresión (sin valores faltantes).
+
+Tu Misión: Escribe una función llamada regresion_lineal(X_train, y_train, X_test, y_test)
+que realice lo siguiente:
+
+1. Entrene un LinearRegression de sklearn usando X_train e y_train.
+2. Genere las predicciones sobre X_test.
+3. Calcule las siguientes métricas comparando las predicciones con y_test:
+   - mse: el Mean Squared Error usando mean_squared_error de sklearn.
+   - r2: el coeficiente de determinación R² usando r2_score de sklearn.
+4. Devuelva una tupla con tres elementos: (predicciones, mse, r2)
+   donde predicciones es un array numpy, mse es un float y r2 es un float.
+
+La función recibe:
+- X_train: array numpy de forma (n_train, n_features) sin valores NaN.
+- y_train: array numpy de forma (n_train,) con valores continuos.
+- X_test: array numpy de forma (n_test, n_features) sin valores NaN.
+- y_test: array numpy de forma (n_test,) con valores continuos.
+
+La función devuelve:
+- Una tupla (predicciones, mse, r2):
+  * predicciones: array numpy con los valores predichos sobre X_test.
+  * mse: float con el Mean Squared Error sobre X_test.
+  * r2: float con el R² sobre X_test.
