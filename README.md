@@ -1,7 +1,7 @@
 # Ejercicio: Programación con LLMs
 
-**Nombre:** [Tu nombre aquí]  
-**Correo institucional:** [tu.correo@udea.edu.co]
+**Nombre:** [SANTIAGO CORREA CASTILLO]  
+**Correo institucional:** [santiago.correac1@udea.edu.co]
 
 ## Preguntas
 
