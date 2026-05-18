@@ -10,4 +10,4 @@ def rankear_por_informacion_mutua(df, target_col):
     scores = mutual_info_regression(X, y, random_state=42)
     orden = np.argsort(scores)[::-1]
     
-    return np.array(X.columns[orden], dtype=str)
+    return list(X.columns[orden])
