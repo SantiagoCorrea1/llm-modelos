@@ -1,0 +1,7 @@
+
+Problema con el evaluador
+El generador de casos de prueba instancia el modelo con TheilSenRegressor() sin fijar una semilla aleatoria (random_state). Este modelo usa submuestreo interno no determinista,
+por lo que cada vez que se ejecuta produce resultados ligeramente distintos aunque reciba los mismos datos.
+El evaluador primero corre el generador para obtener el valor esperado, y luego corre la función del estudiante. Como son dos ejecuciones separadas del mismo modelo sin semilla, 
+los resultados nunca coinciden exactamente, haciendo que la comparación falle aunque la lógica de la solución sea completamente correcta.
+Solución: cambiar TheilSenRegressor() por TheilSenRegressor(random_state=42) en el generador garantiza reproducibilidad y permite que el evaluador funcione correctamente.

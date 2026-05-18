@@ -5,9 +5,6 @@ from sklearn.linear_model import TheilSenRegressor
 from sklearn.metrics import median_absolute_error
 
 def evaluar_regresion_robusta(df, columnas, columna_objetivo, test_size):
-    state = np.random.get_state()
-    np.random.seed(42)
-    
     X = df[columnas].to_numpy()
     y = df[columna_objetivo].to_numpy()
     
@@ -19,7 +16,5 @@ def evaluar_regresion_robusta(df, columnas, columna_objetivo, test_size):
     model.fit(X_train, y_train)
     
     y_pred = model.predict(X_test)
-    
-    np.random.set_state(state)
     
     return median_absolute_error(y_test, y_pred)
