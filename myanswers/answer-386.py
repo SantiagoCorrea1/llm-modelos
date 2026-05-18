@@ -5,7 +5,6 @@ from sklearn.linear_model import TheilSenRegressor
 from sklearn.metrics import median_absolute_error
 
 def evaluar_regresion_robusta(df, columnas, columna_objetivo, test_size):
-    # Guardar estado actual y fijar semilla para reproducir el modelo
     state = np.random.get_state()
     np.random.seed(42)
     
@@ -21,7 +20,6 @@ def evaluar_regresion_robusta(df, columnas, columna_objetivo, test_size):
     
     y_pred = model.predict(X_test)
     
-    # Restaurar estado original
     np.random.set_state(state)
     
     return median_absolute_error(y_test, y_pred)
