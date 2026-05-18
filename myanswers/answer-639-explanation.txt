@@ -1,0 +1,13 @@
+Bug en el evaluador – comparación de arrays de strings
+El generador de la pregunta devuelve un np.ndarray de strings como output esperado. 
+El evaluador, al detectar que expected es un np.ndarray, llama directamente np.allclose(expected, actual_arr) para comparar, sin verificar el tipo de dato del array. 
+np.allclose solo opera sobre valores numéricos, por lo que lanza un DTypePromotionError cuando recibe strings, crasheando el evaluador completo.
+Solución: agregar una verificación del dtype antes de comparar. Si el array es numérico usar np.allclose, si no usar np.array_equal, que funciona con cualquier tipo:
+
+
+if np.issubdtype(expected.dtype, np.number):
+    if not np.allclose(expected, actual_arr, equal_nan=True):
+        return False, "Array contents do not match"
+else:
+    if not np.array_equal(expected, actual_arr):
+        return False, "Array contents do not match"
