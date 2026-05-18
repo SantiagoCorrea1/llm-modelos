@@ -1,0 +1,39 @@
+diagnostico.txt
+===============
+
+PREGUNTA 0386 - answers incorrect
+----------------------------------
+Mi solución corre sin errores y sigue exactamente la lógica del enunciado.
+El problema es que el generador instancia el modelo en la línea:
+
+    model = TheilSenRegressor()  # línea 54 del generador
+
+sin fijar un random_state. TheilSenRegressor usa submuestreo interno no
+determinista, por lo que cada ejecución produce un resultado diferente aunque
+reciba los mismos datos. El evaluador primero corre el generador para obtener
+el expected_val, y luego corre mi función. Como son dos ejecuciones separadas
+del mismo modelo sin semilla fija, los valores nunca coinciden exactamente,
+aunque ambos son correctos. Mi solución usa la misma lógica que el generador:
+train_test_split con random_state=42 y TheilSenRegressor() sin random_state,
+tal como indica el enunciado.
+
+
+PREGUNTA 0639 - answers with run errors
+----------------------------------------
+Mi solución es correcta y corre sin errores de forma independiente. El crash
+ocurre dentro del propio evaluador, no en mi código. El generador devuelve
+en la línea:
+
+    output_data = np.array(X.columns[orden], dtype=str)
+
+un np.ndarray de strings. El evaluador, al detectar que expected es un
+np.ndarray, entra por la rama:
+
+    if not np.allclose(expected, actual_arr, equal_nan=True)
+
+np.allclose solo opera sobre valores numéricos y lanza un DTypePromotionError
+al recibir strings, crasheando el evaluador antes de que pueda registrar mi
+respuesta como correcta o incorrecta. El error no está en mi solución sino
+en el evaluador, que no verifica el dtype del array antes de llamar np.allclose.
+La corrección sería reemplazar np.allclose por np.array_equal cuando el array
+no es numérico.
