@@ -1,0 +1,10 @@
+Pipeline mixto para regresión
+La función construye un pipeline de scikit-learn que maneja automáticamente columnas numéricas y categóricas antes de entrenar un modelo de regresión lineal.
+Preprocesamiento: Se usa un ColumnTransformer con dos ramas paralelas. Para las columnas numéricas, imputa valores faltantes con la mediana y luego estandariza. 
+Para las categóricas, imputa con el valor más frecuente y aplica One-Hot Encoding, convirtiendo cada categoría en una columna binaria.
+Entrenamiento: El ColumnTransformer se encadena con un LinearRegression dentro de un Pipeline, que primero transforma los datos y luego entrena el modelo en un solo paso con .fit().
+Métricas devueltas:
+
+pipeline: el objeto entrenado listo para predecir
+r2_test: qué tan bien explica el modelo la varianza del conjunto de prueba
+n_features_out: cuántas columnas produce el preprocesador tras aplicar OHE a las categóricas (por ejemplo, 3 numéricas + 3 categorías de plan + 4 ciudades = 10 columnas)

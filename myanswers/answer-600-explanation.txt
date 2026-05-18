@@ -1,0 +1,8 @@
+Eliminación de características por baja varianza
+La función usa VarianceThreshold de scikit-learn para filtrar columnas poco informativas. 
+Este selector calcula la varianza de cada columna y elimina aquellas cuyo valor sea menor o igual al umbral indicado.
+
+
+Por ejemplo, una columna constante como [1, 1, 1, 1] tiene varianza cero y sería eliminada con cualquier umbral mayor a cero, ya que no aporta ninguna información al modelo.
+
+La función recibe la matriz X_matrix y el umbral, aplica el filtro con .fit_transform() en un solo paso, y devuelve la matriz resultante solo con las columnas que superan el umbral de varianza.
