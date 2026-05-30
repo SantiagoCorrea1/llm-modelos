@@ -18,22 +18,30 @@ train_test_split con random_state=42 y TheilSenRegressor() sin random_state,
 tal como indica el enunciado.
 
 
-PREGUNTA 0639 - answers with run errors
-----------------------------------------
-Mi solución es correcta y corre sin errores de forma independiente. El crash
-ocurre dentro del propio evaluador, no en mi código. El generador devuelve
-en la línea:
-
+PREGUNTA 0639 - answer with run error
+---------------------------------------
+Mi solución corre sin errores y el ranking que produce es correcto.
+El problema está en la función compare_outputs del evaluador, no en mi código.
+ 
+El generador devuelve el valor esperado como un np.ndarray de strings:
+ 
     output_data = np.array(X.columns[orden], dtype=str)
-
-un np.ndarray de strings. El evaluador, al detectar que expected es un
-np.ndarray, entra por la rama:
-
-    if not np.allclose(expected, actual_arr, equal_nan=True)
-
-np.allclose solo opera sobre valores numéricos y lanza un DTypePromotionError
-al recibir strings, crasheando el evaluador antes de que pueda registrar mi
-respuesta como correcta o incorrecta. El error no está en mi solución sino
-en el evaluador, que no verifica el dtype del array antes de llamar np.allclose.
-La corrección sería reemplazar np.allclose por np.array_equal cuando el array
-no es numérico.
+ 
+La rama del evaluador que maneja np.ndarray usa np.allclose() para comparar
+los valores. Esa función asume que los arrays contienen números — cuando
+encuentra strings, numpy intenta promoverlos a float y lanza el error:
+ 
+    DTypePromotionError: The DType <class 'numpy.dtypes.StrDType'> could not
+    be promoted by <class 'numpy.dtypes._PyFloatDType'>
+ 
+La solución es añadir una verificación del dtype antes de llamar a np.allclose,
+y usar np.array_equal cuando el array contiene strings:
+ 
+    if expected.dtype.kind in ('U', 'S', 'O'):  # unicode, bytes u object
+        if not np.array_equal(expected, actual_arr):
+            return False, "Array contents do not match"
+        return True, ""
+ 
+Este bug afecta a cualquier pregunta cuyo generador devuelva un array de
+strings (rankings, listas de nombres, etiquetas). La lógica de las soluciones
+puede ser correcta pero aparecerán como run errors en lugar de evaluarse.
